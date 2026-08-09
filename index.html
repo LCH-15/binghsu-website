@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bing Hsu | Portfolio</title>
+    <meta name="description" content="Bing Hsu 个人作品集" />
+    <link rel="stylesheet" href="./styles.css?v=26" />
+  </head>
+  <body>
+    <header class="site-navigation" aria-label="网站导航">
+      <a class="nav-work" href="#work">Work</a>
+      <a class="nav-brand" href="#top">@Bing HSU</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#contact">About me</a>
+      </nav>
+      <div class="nav-panel" aria-hidden="true">
+        <p class="nav-panel-title">UX Designer in Progress</p>
+        <p class="nav-panel-copy">Exploring people,<br />technology &amp; systems.</p>
+        <p class="nav-panel-contact">Contact Me</p>
+        <a class="nav-panel-email" href="mailto:xubingying.always@foxmail.com">xubingying.always@foxmail.com</a>
+      </div>
+      <div class="nav-hover-panel" aria-hidden="true">
+        <section class="hover-group">
+          <p class="hover-label">Contact</p>
+          <a class="hover-contact-row" href="tel:+8613282180383"><img class="contact-icon" src="./assets/icon/Phone-icon.svg" alt="" />+86 13282180383</a>
+          <a class="hover-contact-row" href="mailto:xubingying.always@foxmail.com"><img class="contact-icon" src="./assets/icon/Mail-icon.svg" alt="" />xubingying.always@foxmail.com</a>
+        </section>
+        <section class="hover-group">
+          <p class="hover-label">Social Media</p>
+          <a class="social-row social-xiaohongshu" href="#top"><img class="social-icon" src="./assets/icon/rednote-icon.svg" alt="" />@许bing</a>
+          <a class="social-row social-twitter" href="#top"><img class="social-icon" src="./assets/icon/x-icon.svg" alt="" />@bing HSU</a>
+          <a class="social-row social-instagram" href="#top"><img class="social-icon" src="./assets/icon/ins-icon.svg" alt="" />@bing</a>
+        </section>
+      </div>
+    </header>
+
+    <main class="portfolio">
+      <section class="screen home" id="top" aria-label="首页">
+
+        <div class="hero">
+          <h1 class="hero-title">
+            <span class="hero-context-crop">
+              <img class="hero-context" src="./context.png" alt="Context." />
+            </span>
+            <span class="hero-model">Model.</span>
+            <span class="hero-design">Design.</span>
+          </h1>
+        </div>
+      </section>
+
+      <section class="journey" id="journey" aria-labelledby="journey-title">
+        <div class="journey-stage">
+          <div class="section-heading journey-heading">
+            <p>Journey</p>
+            <h2 id="journey-title">Journey of<br />becoming a designer</h2>
+          </div>
+
+          <div class="journey-track" aria-label="Journey experience timeline">
+            <article class="journey-card is-visible">
+              <div class="marker" aria-hidden="true"></div>
+              <div class="journey-card-content">
+                <h3>Art &amp; Technology</h3>
+                <p class="blue">Bachelor | China Academy of Art</p>
+                <p>A foundation for aesthetic exploration</p>
+                <small>Foundation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2022-2026</small>
+              </div>
+            </article>
+
+            <article class="journey-card">
+              <div class="marker" aria-hidden="true"></div>
+              <div class="journey-card-content">
+                <h3>Digital Media in<br />France</h3>
+                <p class="blue">Exchange / Nantes</p>
+                <p>A broader view of people and culture</p>
+                <small>Expansion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2024-2025</small>
+              </div>
+            </article>
+
+            <article class="journey-card">
+              <div class="marker" aria-hidden="true"></div>
+              <div class="journey-card-content">
+                <h3>UX in Business<br />Context</h3>
+                <p class="blue">Design Inter / VAST</p>
+                <p>How design creates value in business</p>
+                <small>Application&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2026</small>
+              </div>
+            </article>
+
+            <article class="journey-card">
+              <div class="marker" aria-hidden="true"></div>
+              <div class="journey-card-content">
+                <h3>Master Study</h3>
+                <p class="blue">M.A. Candidate in Art &amp; Technology</p>
+                <p>Depth · Exploration......</p>
+                <small>Exploration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2026-2028</small>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="selected-work" id="work" aria-labelledby="work-title">
+        <div class="selected-work-stage">
+          <div class="selected-work-heading">
+            <div class="section-heading selected-work-heading-copy">
+              <p>Selected Work</p>
+              <h2 id="work-title">Selected UX work<br />and explorations</h2>
+            </div>
+            <a class="selected-work-link" href="#contact">View All <span aria-hidden="true">-&gt;</span></a>
+          </div>
+
+          <div class="selected-work-gallery" aria-label="Selected work gallery">
+            <div class="selected-work-track">
+              <article class="selected-work-card">
+                <img src="./assets/selected-work/selected-work-1.png" alt="Selected work project preview 1" />
+              </article>
+              <article class="selected-work-card">
+                <img src="./assets/selected-work/selected-work-2.png" alt="Selected work project preview 2" />
+              </article>
+              <article class="selected-work-card">
+                <img src="./assets/selected-work/selectded-work-3.png" alt="Selected work project preview 3" />
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen contact" id="contact" aria-labelledby="contact-title">
+        <p class="contact-eyebrow">@Bing HSU</p>
+        <h2 id="contact-title">Let’s work<br /><span>together</span></h2>
+      </section>
+    </main>
+    <script src="./script.js?v=19"></script>
+  </body>
+</html>
