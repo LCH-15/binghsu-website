@@ -12,9 +12,59 @@ const footerExitDuration = 160;
 const selectedWorkDragFactor = 1.28;
 const selectedWorkReleaseBuffer = 140;
 const selectedWorkEndInset = 20;
+const heroModel = document.querySelector(".hero-model");
+const heroModelLabel = document.querySelector(".hero-model-label");
 let footerExitTimer;
 let journeyAnimationFrame;
 let selectedWorkMaxOffset = 0;
+
+function updateHeroModelMask() {
+  if (!heroModel || !heroModelLabel) return;
+
+  const style = window.getComputedStyle(heroModelLabel);
+  const rect = heroModel.getBoundingClientRect();
+  const fontSize = Number.parseFloat(style.fontSize);
+  const letterSpacing = Number.parseFloat(style.letterSpacing) || 0;
+  const metricCanvas = document.createElement("canvas");
+  const metricContext = metricCanvas.getContext("2d");
+  const label = heroModelLabel.textContent.trim();
+
+  if (!metricContext || !rect.width || !rect.height || !fontSize) return;
+
+  metricContext.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+  const metrics = metricContext.measureText(label);
+  const ascent = metrics.actualBoundingBoxAscent || fontSize * 0.75;
+  const descent = metrics.actualBoundingBoxDescent || fontSize * 0.25;
+  const baseline = (rect.height - ascent - descent) / 2 + ascent;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${rect.width} ${rect.height}"><text x="0" y="${baseline}" textLength="${rect.width}" lengthAdjust="spacingAndGlyphs" fill="white" font-family="${style.fontFamily}" font-size="${fontSize}" font-weight="${style.fontWeight}" letter-spacing="${letterSpacing}">${label}</text></svg>`;
+
+  heroModel.style.setProperty("--model-glyph-mask", `url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
+}
+
+function isMobileNavigation() {
+  return !desktopQuery.matches;
+}
+
+function closeMobileNavigation() {
+  navigation.classList.remove("is-mobile-expanded");
+  navigation.setAttribute("aria-expanded", "false");
+}
+
+function openMobileNavigation() {
+  if (navigation.classList.contains("is-footer") || navigation.classList.contains("is-footer-exiting")) return;
+
+  navigation.classList.add("is-mobile-expanded");
+  navigation.setAttribute("aria-expanded", "true");
+}
+
+function toggleMobileNavigation() {
+  if (navigation.classList.contains("is-mobile-expanded")) {
+    closeMobileNavigation();
+    return;
+  }
+
+  openMobileNavigation();
+}
 
 function updateNavigationScale() {
   // Scale the Figma component as one unit while preserving a 12px mobile gutter.
@@ -90,12 +140,14 @@ const navigationObserver = new IntersectionObserver(
     window.clearTimeout(footerExitTimer);
 
     if (entry.isIntersecting) {
+      closeMobileNavigation();
       navigation.classList.remove("is-footer-exiting");
       navigation.classList.add("is-footer");
       return;
     }
 
     if (navigation.classList.contains("is-footer")) {
+      closeMobileNavigation();
       navigation.classList.add("is-footer-exiting");
       navigation.classList.remove("is-footer");
       footerExitTimer = window.setTimeout(() => {
@@ -109,18 +161,68 @@ const navigationObserver = new IntersectionObserver(
   { threshold: 0.55 }
 );
 
+navigation.addEventListener("click", (event) => {
+  if (!isMobileNavigation()) return;
+  if (navigation.classList.contains("is-footer") || navigation.classList.contains("is-footer-exiting")) return;
+
+  const target = event.target.closest("a");
+  const topLevelLink = target?.classList.contains("nav-work") || target?.classList.contains("nav-brand") || target?.parentElement?.classList.contains("nav-links");
+
+  if (!navigation.classList.contains("is-mobile-expanded")) {
+    event.preventDefault();
+    openMobileNavigation();
+    return;
+  }
+
+  if (!target) {
+    toggleMobileNavigation();
+    return;
+  }
+
+  if (topLevelLink) {
+    closeMobileNavigation();
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (!isMobileNavigation()) return;
+  if (navigation.contains(event.target)) return;
+
+  closeMobileNavigation();
+});
+
+window.addEventListener("scroll", () => {
+  if (!isMobileNavigation()) return;
+  if (navigation.classList.contains("is-footer") || navigation.classList.contains("is-footer-exiting")) return;
+
+  closeMobileNavigation();
+}, { passive: true });
+
+desktopQuery.addEventListener("change", () => {
+  closeMobileNavigation();
+  updateNavigationScale();
+});
+
 navigationObserver.observe(contact);
 updateNavigationScale();
+updateHeroModelMask();
 updateJourneyOffsets();
 updateSelectedWorkMetrics();
 updateSelectedWorkProgress();
+closeMobileNavigation();
 window.addEventListener("load", updateNavigationScale);
+window.addEventListener("load", updateHeroModelMask);
 window.addEventListener("load", updateJourneyOffsets);
 window.addEventListener("load", updateSelectedWorkMetrics);
 window.addEventListener("load", updateSelectedWorkProgress);
 window.addEventListener("resize", updateNavigationScale);
+window.addEventListener("resize", updateHeroModelMask);
 window.addEventListener("resize", updateJourneyOffsets);
 window.addEventListener("resize", updateSelectedWorkMetrics);
 window.addEventListener("resize", updateSelectedWorkProgress);
 window.addEventListener("scroll", requestJourneyOffsetUpdate, { passive: true });
 window.addEventListener("scroll", updateSelectedWorkProgress, { passive: true });
+
+if (document.fonts) {
+  document.fonts.ready.then(updateHeroModelMask);
+}
