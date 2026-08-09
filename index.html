@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bing Hsu | Portfolio</title>
     <meta name="description" content="Bing Hsu 个人作品集" />
-    <link rel="stylesheet" href="./styles.css?v=26" />
+    <link rel="stylesheet" href="./styles.css?v=35" />
   </head>
   <body>
-    <header class="site-navigation" aria-label="网站导航">
+    <header class="site-navigation" aria-label="网站导航" aria-expanded="false">
       <a class="nav-work" href="#work">Work</a>
       <a class="nav-brand" href="#top">@Bing HSU</a>
       <nav class="nav-links" aria-label="Primary navigation">
@@ -37,13 +37,15 @@
 
     <main class="portfolio">
       <section class="screen home" id="top" aria-label="首页">
-
+        <div class="hero-3d" aria-hidden="true">
+          <canvas class="hero-3d-canvas"></canvas>
+        </div>
         <div class="hero">
           <h1 class="hero-title">
             <span class="hero-context-crop">
               <img class="hero-context" src="./context.png" alt="Context." />
             </span>
-            <span class="hero-model">Model.</span>
+            <span class="hero-model"><span class="hero-model-label">Model.</span></span>
             <span class="hero-design">Design.</span>
           </h1>
         </div>
@@ -131,6 +133,7 @@
         <h2 id="contact-title">Let’s work<br /><span>together</span></h2>
       </section>
     </main>
-    <script src="./script.js?v=19"></script>
+    <script src="./script.js?v=24"></script>
+    <script src="./model.bundle.js?v=8"></script>
   </body>
 </html>
